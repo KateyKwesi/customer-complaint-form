@@ -13,7 +13,6 @@ function validateForm() {
   const regEmail = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
   const regOder = /^(2024)\d{6}$/gm;
   const regProductCode = /^[a-z]{2}\d{2}-[a-z]\d{3}-[a-z]{2}\d$/gim;
-  const regQuantity = /^\d+$/gm;
   const regDesc = /.{20,}/gims;
 
   const fullNameValue = fullName.value;
@@ -69,7 +68,7 @@ function isValid(obj) {
 
 form.addEventListener(`submit`, (event) => {
   event.preventDefault();
-  console.log(validateForm());
+  console.log(isValid(validateForm()));
 });
 
 form.addEventListener(`change`, (event) => {
@@ -79,10 +78,20 @@ form.addEventListener(`change`, (event) => {
   const getComplaintGroup = [
     ...document.querySelectorAll('input[type="checkbox"]:checked'),
   ].map((el) => el.value);
+
+  const solutionsGroupValue = [
+    ...document.querySelectorAll('input[type="radio"]:checked'),
+  ].map((el) => el.value);
   if (getComplaintGroup.length > 0) {
     complaintGroup.style.borderColor = `green`;
   } else {
     complaintGroup.style.borderColor = `red`;
+  }
+
+  if (solutionsGroupValue.length > 0) {
+    solutionGroup.style.borderColor = `green`;
+  } else {
+    solutionGroup.style.borderColor = `red`;
   }
   //console.log(obj[event.target.id]);
   obj[event.target.id]
